@@ -73,7 +73,7 @@ if __name__ == '__main__':
     # print(chinese_sorter.sort_by_stroke(chinese_sorter.score_df['姓名'].tolist()))
     chinese_sorter.word_frequency_df['汉字'] = chinese_sorter.word_frequency_df.apply(lambda x: chinese_sorter.chinese_format
     (x['汉字']), axis=1)
-    word_by_pinyin_df = chinese_sorter.word_frequency_df
+    word_by_pinyin_df = chinese_sorter.word_frequency_df[chinese_sorter.word_frequency_df['词频'] != 0]
     word_chinese_list = word_by_pinyin_df['汉字'].tolist()
     word_chinese_list_by_pinyin = chinese_sorter.sort_by_pinyin(word_chinese_list)
     word_pinyin_list = [chinese_sorter.pinyin_dict[i] for i in word_chinese_list_by_pinyin]
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     word_by_pinyin_df['拼音'] = word_pinyin_list
     word_by_pinyin_df['笔画'] = word_stroke_list
     word_by_pinyin_df.to_csv(r'红楼梦字频表按拼音排序.csv', index=False, encoding='gbk')
-    word_by_stroke_df = chinese_sorter.word_frequency_df
+    word_by_stroke_df = chinese_sorter.word_frequency_df[chinese_sorter.word_frequency_df['词频'] != 0]
     word_chinese_list = word_by_stroke_df['汉字'].tolist()
     word_chinese_list_by_stroke = chinese_sorter.sort_by_stroke(word_chinese_list)
     word_pinyin_list = [chinese_sorter.pinyin_dict[i] for i in word_chinese_list_by_stroke]
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     word_by_stroke_df['拼音'] = word_pinyin_list
     word_by_stroke_df['笔画'] = word_stroke_list
     word_by_stroke_df.to_csv(r'红楼梦字频表按笔画排序.csv', index=False, encoding='gbk')
-    word_by_frequency_df = chinese_sorter.word_frequency_df
+    word_by_frequency_df = chinese_sorter.word_frequency_df[chinese_sorter.word_frequency_df['词频'] != 0]
     word_by_frequency_df = word_by_frequency_df.sort_values(by=['词频'])
     word_by_frequency_df.to_csv(r'红楼梦字频表按频次排序.csv', index=False, encoding='gbk')
     chinese_sorter.score_df['姓名'] = chinese_sorter.score_df.apply(
